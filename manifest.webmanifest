@@ -1,0 +1,25 @@
+{
+  "name": "Project Beast Mode 2.0",
+  "short_name": "Beast Mode",
+  "description": "PET preparation, fitness, habits, recovery mission, Aura Evolution and performance tracker.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05090e",
+  "theme_color": "#05090e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

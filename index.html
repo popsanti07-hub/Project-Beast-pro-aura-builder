@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05090e"><meta name="description" content="Project Beast Mode 2.0 — PET preparation, habits and discipline tracker.">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>Project Beast Mode 2.0</title><link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header class="topbar">
+ <div class="brand"><div class="brand-mark">BM<span>2.0</span></div><div><div class="eyebrow">DISCIPLINE BUILDS FREEDOM</div><h1>PROJECT BEAST MODE</h1><p>Fitness · Habits · Performance</p></div></div>
+ <button id="installBtn" class="install hidden">Install app</button>
+</header>
+<main>
+ <section id="home" class="view active">
+  <div class="hero panel">
+   <div class="row between"><div><div class="eyebrow">YOUR DAILY MISSION</div><h2 id="todayLabel">Today</h2></div><input id="dateInput" class="date-input" type="date" aria-label="Select date"></div>
+   <div class="lc-card"><div class="lion">♛</div><div class="grow"><div class="muted">LIFE CELLS</div><strong id="lifeCells">0 LC</strong><div id="levelLabel" class="small">Level 1 · Beginner</div><div class="track"><i id="levelBar"></i></div><div id="levelProgress" class="tiny">0 / 500 to next level</div></div></div>
+   <div class="stats">
+    <div class="stat"><strong id="dailyPct">0%</strong><span>Today's habits</span></div>
+    <div class="stat"><strong id="streakDays">0</strong><span>Day streak</span></div>
+    <div class="stat"><strong id="petPoints">0</strong><span>PET points</span></div>
+   </div>
+   <div class="row between"><b>Daily completion</b><b id="completionText">0 / 8</b></div><div class="track large"><i id="dailyBar"></i></div>
+   <p id="missionHint" class="hint">Small actions. Consistent progress.</p>
+  </div>
+  <div class="section-head"><div><div class="eyebrow">TODAY'S FOCUS</div><h2>Mission shortcuts</h2></div></div>
+  <div class="shortcut-grid">
+   <button class="shortcut" data-go="habits"><span>✓</span><b>Good Habits</b><small>Water · reading · discipline</small></button>
+   <button class="shortcut" data-go="workout"><span>⚡</span><b>PET Training</b><small>Workout · event practice</small></button>
+   <button class="shortcut" data-go="rewards"><span>✦</span><b>Life Cells</b><small>Levels · milestones</small></button>
+   <button class="shortcut" data-go="reports"><span>▥</span><b>Weekly Report</b><small>Consistency · progress</small></button>
+  </div>
+  <div class="panel"><div class="row between"><h3>Today's priorities</h3><span class="pill">LIVE</span></div><div id="homeHabits" class="mini-list"></div></div>
+ </section>
+
+ <section id="habits" class="view">
+  <div class="section-head"><div><div class="eyebrow">BUILD YOUR DAILY SYSTEM</div><h2>Good Habit Tracker</h2></div><span class="pill green">+10 LC each</span></div>
+  <div class="panel"><div class="row between"><div><div class="muted">WATER TARGET</div><h2><span id="waterValue">0</span> <small id="waterTargetLabel">/ 3 L</small></h2></div><div class="water-icon">💧</div></div>
+   <div class="track large"><i id="waterBar"></i></div><div class="water-controls"><button id="waterMinus" class="secondary">− 250 ml</button><button id="waterPlus" class="primary">+ 250 ml</button></div><p class="hint">Set your daily target in settings. Water reward is earned when the target is reached.</p>
+  </div>
+  <div class="row between habit-toolbar"><p class="hint">Edit, archive or add habits. Changes are saved on this device.</p><button id="addHabitBtn" class="secondary">+ Add habit</button></div><div id="habitList" class="habit-list"></div>
+  <div class="panel"><h3>Daily discipline</h3><div class="row between"><span>Habits completed</span><b id="habitCount">0 / 8</b></div><div class="track"><i id="habitBar"></i></div><p id="habitMessage" class="hint">Complete your habits to earn Life Cells.</p></div>
+ </section>
+
+ <section id="workout" class="view">
+  <div class="section-head"><div><div class="eyebrow">PHYSICAL BEAST MODE</div><h2>PET Training Centre</h2></div></div>
+  <div class="panel"><div class="row between"><h3>Daily workout checklist</h3><span class="pill">Original plan</span></div><div id="workoutGroups"></div></div>
+  <div class="panel"><div class="row between"><h3>PET event practice</h3><span class="pill amber">+10 points</span></div><p class="hint">Tick an event only after completing the practice.</p><div id="petEvents" class="event-grid"></div><div class="points-line">Today's PET practice <b id="eventPoints">0 points</b></div></div>
+  <div class="panel"><h3>Performance records</h3><form id="recordForm">
+   <label>Date<input id="recordDate" type="date" required></label>
+   <label>Event<select id="eventType"><option>100m sprint (seconds)</option><option>1500m run (mm:ss)</option><option>Long jump (metres)</option><option>High jump (centimetres)</option><option>Pull-ups (repetitions)</option><option>Rope climb (seconds / notes)</option><option>Shot put (metres)</option></select></label>
+   <label>Measured result<input id="recordValue" required placeholder="e.g. 15.2 or 1.85"></label><label>Notes<input id="recordNotes" placeholder="Conditions, technique…"></label>
+   <button class="primary full" type="submit">Save performance record</button></form><div id="recordsList" class="history-list"></div>
+  </div>
+  <div class="panel"><h3>Daily reflection</h3><label>Energy<select id="energy"><option value="">Choose…</option><option>Low</option><option>Moderate</option><option>Good</option><option>Excellent</option></select></label><label>Fatigue / soreness<select id="fatigue"><option value="">Choose…</option><option>None</option><option>Mild</option><option>Moderate</option><option>High</option></select></label><label>Pain or discomfort<select id="pain"><option value="">Choose…</option><option>No</option><option>Yes – stopped or modified training</option></select></label><label>Notes<textarea id="notes" rows="3" placeholder="How did training feel?"></textarea></label><button id="saveReflection" class="secondary full">Save reflection</button><p id="saveStatus" class="hint"></p></div>
+ </section>
+
+ <section id="rewards" class="view">
+  <div class="section-head"><div><div class="eyebrow">CONSISTENCY GETS RECOGNIZED</div><h2>Life Cells & Achievements</h2></div></div>
+  <div class="panel reward-hero"><div class="muted">YOUR LIFE CELLS BALANCE</div><strong id="rewardBalance">0 LC</strong><p id="rewardLevel">Level 1 · Beginner</p><div class="track large"><i id="rewardBar"></i></div></div>
+  <div class="panel"><h3>Milestone benefits</h3><p class="hint">Milestones celebrate consistency. Health benefits vary by person; the app does not claim guaranteed medical outcomes.</p><div id="milestones" class="milestone-list"></div></div>
+  <div class="panel"><h3>Recent Life Cells activity</h3><div id="ledgerList" class="history-list"></div></div>
+  <div class="panel"><h3>How Life Cells work</h3><ul class="benefits"><li>+10 LC for each completed daily habit, once per date.</li><li>+50 LC when all active habits are completed for a day.</li><li>+150 LC after seven fully completed habit days in a calendar week.</li><li>Habit and daily-completion rewards are reversible if you untick or reduce a completed habit. Other achievements remain in your history.</li></ul></div>
+ </section>
+
+ <section id="reports" class="view">
+  <div class="section-head"><div><div class="eyebrow">MEASURE WHAT MATTERS</div><h2>Weekly Analytics</h2></div></div>
+  <div class="panel"><h3>This week</h3><div class="stats"><div class="stat"><strong id="weekHabitPct">0%</strong><span>Habit completion</span></div><div class="stat"><strong id="weekWorkout">0</strong><span>Workout tasks</span></div><div class="stat"><strong id="weekLC">0</strong><span>LC earned</span></div></div><div id="weekHabitBars" class="bar-list"></div></div>
+  <div class="panel"><h3>This month</h3><div class="stats"><div class="stat"><strong id="monthHabitPct">0%</strong><span>Habit completion</span></div><div class="stat"><strong id="monthPET">0</strong><span>PET practice points</span></div><div class="stat"><strong id="monthDays">0</strong><span>Active days</span></div></div></div>
+  <div class="panel"><h3>Recent daily history</h3><div id="historyList" class="history-list"></div></div>
+ </section>
+
+
+ <section id="recovery" class="view">
+  <div class="section-head"><div><div class="eyebrow">SELF-MASTERY · PERSONAL GROWTH</div><h2>Recovery Mission</h2></div><span class="pill" style="background:#401d27;color:#ff9aa4">RED MISSION</span></div>
+  <div class="panel recovery-hero">
+   <div class="row between"><div><div class="eyebrow" style="color:#ff777f">AURA EVOLUTION</div><h2 id="auraStage">Awaiting ignition</h2><p class="hint" id="auraCaption">Start your mission to begin the evolution.</p></div><div class="aura-score"><b id="auraScore">0</b><small>AURA XP</small></div></div>
+   <div class="aura-visual" id="auraVisual"><div class="aura-ring ring-one"></div><div class="aura-ring ring-two"></div><div class="aura-person"><span class="head"></span><span class="torso"></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div><div class="aura-core"></div></div>
+   <div class="row between"><b>Current challenge</b><b><span id="recoveryDay">0</span> days</b></div><div class="track large"><i id="recoveryBar"></i></div><p class="hint" id="recoveryLevel">Beginner · Days 1–14</p>
+   <button id="startRecovery" class="primary full">Start recovery mission</button>
+  </div>
+  <div class="panel"><h3>Mission setup</h3><label>Start date<input id="recoveryStartDate" type="date"></label><label class="checkline"><input id="boundaryPorn" type="checkbox" checked> Pornography-free challenge</label><label class="checkline"><input id="boundaryMasturbation" type="checkbox"> Masturbation-abstinence challenge (optional)</label><p class="hint">Choose boundaries that are meaningful and realistic for you. Normal sexual thoughts, involuntary erections and nocturnal emissions are not failures.</p><button id="saveRecoverySetup" class="secondary full">Save mission setup</button></div>
+  <div class="panel"><div class="row between"><h3>Today's recovery log</h3><span class="pill" id="recoveryTodayStatus">NOT LOGGED</span></div>
+   <label class="checkline"><input id="logPorn" type="checkbox"> I stayed within my pornography boundary today</label>
+   <label class="checkline"><input id="logMasturbation" type="checkbox"> I stayed within my optional abstinence boundary today</label>
+   <label>Urge intensity (0–10)<input id="urgeIntensity" type="range" min="0" max="10" value="0"></label><div class="row between"><span class="hint">Low</span><b id="urgeValue">0 / 10</b><span class="hint">High</span></div>
+   <label>Urges managed today<input id="urgesManaged" type="number" min="0" max="50" value="0"></label>
+   <div class="check-grid"><label class="checkline"><input id="logExercise" type="checkbox"> Exercise / walk</label><label class="checkline"><input id="logMeditation" type="checkbox"> Meditation</label><label class="checkline"><input id="logLearning" type="checkbox"> Reading / learning</label><label class="checkline"><input id="logSleep" type="checkbox"> Sleep routine</label><label class="checkline"><input id="logSocial" type="checkbox"> Positive social interaction</label></div>
+   <label>Mood<select id="recoveryMood"><option value="">Select mood</option><option>Low</option><option>Neutral</option><option>Good</option><option>Strong</option></select></label>
+   <label>Confidence today<select id="recoveryConfidence"><option value="">Select</option><option>Low</option><option>Building</option><option>Good</option><option>High</option></select></label>
+   <label>Reflection<textarea id="recoveryReflection" rows="3" placeholder="What triggered urges? What helped? What will I do tomorrow?"></textarea></label>
+   <button id="saveRecoveryLog" class="primary full">Save today's log</button><p id="recoverySaveStatus" class="hint"></p>
+  </div>
+  <div class="panel emergency-panel"><div class="row between"><h3>⚠ Urge Emergency Mode</h3><span class="pill" style="background:#401d27;color:#ff9aa4">10 MIN RESET</span></div><p class="hint">An urge is a feeling, not an instruction. Create space before deciding what to do.</p><ol class="benefits"><li>Leave the trigger environment and move to a shared or open space.</li><li>Put your phone away or enable a blocker.</li><li>Breathe slowly for two minutes.</li><li>Walk, stretch or do a short safe movement break.</li><li>After ten minutes, record the trigger and intensity without judging yourself.</li></ol><div id="urgeTimer" class="urge-timer">10:00</div><button id="startUrgeTimer" class="danger full">Start 10-minute reset</button><label>Trigger / situation<input id="urgeTrigger" placeholder="e.g. boredom, stress, scrolling"></label><button id="saveUrge" class="secondary full">Record managed urge</button><div id="urgeHistory" class="history-list"></div></div>
+  <div class="panel"><h3>Evolution milestones</h3><p class="hint">Aura represents accumulated effort and growth. A restart changes the current challenge streak, never your earned aura, history or unlocked milestones.</p><div id="auraMilestones" class="milestone-list"></div></div>
+  <div class="panel"><h3>Weekly recovery programme</h3><div id="weeklyProgramme"></div><label>Weekly review<textarea id="weeklyReview" rows="3" placeholder="Wins, difficult moments, patterns and next week's plan"></textarea></label><button id="saveWeeklyReview" class="secondary full">Save weekly review</button></div>
+  <div class="panel"><h3>Restart / comeback</h3><p class="hint">If you cross a boundary you selected, record it honestly and begin again. This does not erase your aura, Life Cells, previous milestones or learning.</p><label>What happened? (optional)<textarea id="restartReason" rows="2" placeholder="Trigger, context, what I learned"></textarea></label><button id="restartRecovery" class="danger full">Record boundary break & restart streak</button><div id="recoveryHistory" class="history-list"></div></div>
+ </section>
+
+ <section id="settings" class="view">
+  <div class="section-head"><div><div class="eyebrow">PERSONAL CONFIGURATION</div><h2>Settings & Backup</h2></div></div>
+  <div class="panel"><h3>Habit targets</h3><label>Daily water target (litres)<input id="waterTarget" type="number" min="0.5" max="8" step="0.25"></label><label>Reading target (minutes)<input id="readingTarget" type="number" min="1" max="300"></label><label>Study target (minutes)<input id="studyTarget" type="number" min="1" max="600"></label><label>Week starts on<select id="weekStart"><option value="1">Monday</option><option value="0">Sunday</option></select></label><label>PET / examination date (optional)<input id="examDate" type="date"></label><button id="saveSettings" class="primary full">Save settings</button></div>
+  <div class="panel"><h3>Your data belongs to you</h3><p class="hint">Your records are stored locally in this browser. Export a JSON backup regularly, especially before changing devices or clearing browser data.</p><div class="button-row"><button id="exportBtn" class="secondary">Export JSON</button><button id="csvBtn" class="secondary">Export CSV</button></div><label class="file-button">Import JSON backup<input id="importFile" type="file" accept="application/json"></label><button id="resetBtn" class="danger full">Delete all app data</button></div>
+  <div class="panel"><h3>Training safety</h3><p class="hint">Build training volume gradually. Stop for sharp pain, dizziness, chest pain or unusual breathlessness. Plan recovery between demanding sessions. Hydration needs vary with climate, activity and health.</p></div>
+ </section>
+</main>
+<nav class="bottom-nav" aria-label="Main navigation">
+ <button class="nav-btn active" data-tab="home"><span>⌂</span>Home</button><button class="nav-btn" data-tab="habits"><span>✓</span>Habits</button><button class="nav-btn" data-tab="workout"><span>⚡</span>Workout</button><button class="nav-btn" data-tab="rewards"><span>✦</span>Rewards</button><button class="nav-btn" data-tab="reports"><span>▥</span>Reports</button><button class="nav-btn" data-tab="recovery"><span>✧</span>Recovery</button><button class="nav-btn" data-tab="settings"><span>⚙</span>More</button>
+</nav>
+<footer>PROJECT BEAST MODE 2.0 · DISCIPLINE BUILDS FREEDOM</footer>
+<script src="./app.js"></script>
+</body></html>
